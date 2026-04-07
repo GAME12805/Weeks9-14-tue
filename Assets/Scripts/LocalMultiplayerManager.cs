@@ -12,11 +12,12 @@ public class LocalMultiplayerManager : MonoBehaviour
     {
         players.Add(player);
 
-        SpriteRenderer sr = player.GetComponent<SpriteRenderer>();
-        sr.sprite = playerSprites[player.playerIndex];
+        //SpriteRenderer sr = player.GetComponent<SpriteRenderer>();
+        //sr.sprite = playerSprites[player.playerIndex];
 
         LocalMultiplayerController controller = player.GetComponent<LocalMultiplayerController>();
         controller.manager = this;
+        controller.SetSprties(playerSprites[player.playerIndex]);
     }
 
     public void PlayerAttacking(PlayerInput attackPlayer)
@@ -28,6 +29,7 @@ public class LocalMultiplayerManager : MonoBehaviour
             if(Vector2.Distance(attackPlayer.transform.position, players[i].transform.position) < 0.5f)
             {
                 Debug.Log("Player " + attackPlayer.playerIndex + " hit player " + players[i].playerIndex);
+                players[i].GetComponent<LocalMultiplayerController>().TakeDamage();
             }
         }
         

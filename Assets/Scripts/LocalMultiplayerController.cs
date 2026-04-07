@@ -7,6 +7,9 @@ public class LocalMultiplayerController : MonoBehaviour
     public PlayerInput playerInput;
     public Vector2 movementInput;
     public float speed = 5;
+    public SpriteRenderer sr;
+    public AudioSource SFX;
+    public ParticleSystem ps;
 
     void Update()
     {
@@ -23,7 +26,18 @@ public class LocalMultiplayerController : MonoBehaviour
         if (context.performed)
         {
             Debug.Log("Player " + playerInput.playerIndex + ": Attacking!");
+            SFX.Play();
             manager.PlayerAttacking(playerInput);
         }
+    }
+
+    public void SetSprties(Sprite sprite)
+    {
+        sr.sprite = sprite;
+        ps.textureSheetAnimation.SetSprite(0, sprite);
+    }
+    public void TakeDamage()
+    {
+        ps.Emit(10);
     }
 }
